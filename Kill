@@ -66,11 +66,20 @@ local buttonNames = {
 local yPosition = 20
 local buttons = {}
 
+-- Función para cambiar el color del botón (verde y original)
+local function toggleButtonColor(button)
+    if button.BackgroundColor3 == Color3.fromRGB(0, 255, 0) then
+        button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)  -- Color original
+    else
+        button.BackgroundColor3 = Color3.fromRGB(0, 255, 0)  -- Cambiar a verde
+    end
+end
+
 for _, name in ipairs(buttonNames) do
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(0,360,0,40)
     btn.Position = UDim2.new(0,20,0,yPosition)
-    btn.BackgroundColor3 = Color3.fromRGB(40,40,40)
+    btn.BackgroundColor3 = Color3.fromRGB(40,40,40)  -- Color original
     btn.Text = name
     btn.TextColor3 = Color3.fromRGB(0,255,255)
     btn.Font = Enum.Font.Gotham
@@ -78,6 +87,11 @@ for _, name in ipairs(buttonNames) do
     btn.Parent = buttonContainer
 
     buttons[name] = btn
+
+    -- Cambiar color al presionar el botón
+    btn.MouseButton1Click:Connect(function()
+        toggleButtonColor(btn)
+    end)
 
     yPosition = yPosition + 50
 end
